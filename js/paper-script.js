@@ -40,14 +40,14 @@ function onFrame(event) {
  path.smooth();
 
 // Select the path, so we can see its handles:
-	// path.fullySelected = true;
-    //
-    // var myCircle = new Path.Circle({
-	// 	center: view.center,
-	// 	radius: vol*500
-	// });
-	// myCircle.strokeColor = 'black';
-	// myCircle.fillColor = 'white';
+	path.fullySelected = true;
+
+    var myCircle = new Path.Circle({
+		center: view.center,
+		radius: vol*500
+	});
+	myCircle.strokeColor = 'black';
+	myCircle.fillColor = 'white';
 
 }
 
