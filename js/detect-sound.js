@@ -8,6 +8,7 @@ function setup() {
      // start the Audio Input.
   // By default, it does not .connect() (to the computer speakers)
   mic.start();
+  getAudioContext().resume();
 }
 
 function draw() {
@@ -24,9 +25,9 @@ function draw() {
   ellipse(width/2, h - 25, 50, 50);
 }
 
-function touchStarted() {
-  getAudioContext().resume()
-}
+// function touchStarted() {
+//   getAudioContext().resume()
+// }
 
 // /*
 // The MIT License (MIT)
