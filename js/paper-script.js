@@ -42,12 +42,12 @@ function onFrame(event) {
 // Select the path, so we can see its handles:
 	path.fullySelected = true;
 
-    // var myCircle = new Path.Circle({
-	// 	center: view.center,
-	// 	radius: vol * 200;
-	// });
-	// myCircle.strokeColor = 'black';
-	// myCircle.fillColor = 'white';
+    var myCircle = new Path.Circle({
+		center: view.center,
+		radius: vol*500
+	});
+	myCircle.strokeColor = 'black';
+	myCircle.fillColor = 'white';
 
 }
 
