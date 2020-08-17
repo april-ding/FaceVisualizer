@@ -2,42 +2,58 @@
 // face.position = view.center;
 // face.fillColor = '#EF9050';
 
-var circle = new Path.Circle(new Point(view.center), 200);
-circle.fillColor = '#80BC9B';
+var circleSize = 200;
+
+var circle = new Path.Circle(new Point(view.center), circleSize);
+circle.strokeColor = '#F9C74F';
+circle.strokeWeight = 30;
 var circleDir = 1;
 
-var points = 8;
+var points = 4;
 
-var mouth = new Shape.Ellipse({
-    point: view.center - 20 + new Point(0, 80),
-    size: [40, 20],
-    fillColor: 'black'
+var bar = new Path({
+    segments: [[400, 500], [400, 499]],
+    strokeColor: 'red',
+    strokeWidth: 20,
+    strokeCap: 'round',
 });
 
-var eye1 = new Path.Circle(new Point(view.center + {
-    x:90,
-    y: -50
-}), 50);
-var iris1 = new Path.Circle(new Point(view.center + {
-    x:90,
-    y: -50
-}), 30);
-var eye2 = new Path.Circle(new Point(view.center + {
-    x: -90,
-    y: -50
-}), 50);
-var iris2 = new Path.Circle(new Point(view.center + {
-    x: -90,
-    y: -50
-}), 30);
-eye1.fillColor = 'white';
-eye2.fillColor = 'white';
-iris1.fillColor = 'black';
-iris2.fillColor = 'black';
+
+
+// var mouth = new Shape.Ellipse({
+//     point: view.center - 20 + new Point(0, 80),
+//     size: [40, 20],
+//     fillColor: 'black'
+// });
+//
+// var eye1 = new Path.Circle(new Point(view.center + {
+//     x: 90,
+//     y: -50
+// }), circleSize/4);
+// var iris1 = new Path.Circle(new Point(view.center + {
+//     x: 90,
+//     y: -50
+// }), circleSize*0.15);
+// var eye2 = new Path.Circle(new Point(view.center + {
+//     x: -90,
+//     y: -50
+// }), circleSize/4);
+// var iris2 = new Path.Circle(new Point(view.center + {
+//     x: -90,
+//     y: -50
+// }), circleSize*0.15);
+// eye1.fillColor = 'white';
+// eye2.fillColor = 'white';
+// iris1.fillColor = 'black';
+// iris2.fillColor = 'black';
 
 var dir = 1;
-
 var pathHeight = 0.5;
+
+var startPop = false;
+var circlePopped = false;
+
+
 initializePath();
 
 function initializePath() {
@@ -45,54 +61,82 @@ function initializePath() {
 }
 
 function onMouseMove(event) {
+    mousePos = event.point;
 }
-// Create a copy of the path and move it 100pt to the right:
+
 function onFrame(event) {
-    if(vol>0){
-        mouth.size =[40, 20+vol*400];
 
-        if(iris1.position.x >= view.center.x + 90 + 20 || iris1.position.x <= view.center.x + 90 - 20){
-            dir *= -1;
+    if (vol != null || vol != 0 || vol != undefined) {
+        if(vol> 0 && 500-vol*800 > 100){
+            bar.segments[1].point.y = 500-vol*800;
+            console.log(bar.segments[1].point.y);
         }
-        iris1.position.x += vol*5*dir;
-        iris2.position.x += vol*5*dir;
+
+    }
+    // if (vol > 0) {
+    //     mouth.size = [40, 20 + vol * 400];
+    //
+    //     if (iris1.position.x >= view.center.x + 90 + 20 || iris1.position.x <= view.center.x + 90 - 20) {
+    //         dir *= -1;
+    //     }
+    //     iris1.position.x += vol * 10 * dir;
+    //     iris2.position.x += vol * 10 * dir;
+    //
+    // }
+
+
+    //pop the face
+    if (!circlePopped) {
+
+        if (vol * 150 > 100) {
+            //startPop = true;
+        }
+        if (startPop) {
+            for (var i = 0; i < points; i++) {
+                circle.segments[i].point = view.center;
+            }
+            circle.flatten(200);
+            circlePopped = true;
+        }
 
     }
 
-    for(var i = 0; i < points; i++){
-        var sinSeed = event.count + (i + i % 10 * 100);
-        var sinHeight = Math.sin(sinSeed / 200) * pathHeight;
-        if(vol == null || vol == 0 || vol == undefined){
-            var xPos = Math.sin(sinSeed / 100) * sinHeight;
-    		var yPos = Math.sin(sinSeed / 100) * sinHeight;
-        }
-        if(vol > 0){
-            var xPos = Math.sin(sinSeed / 100) * sinHeight + vol*4;
-    		var yPos = Math.sin(sinSeed / 100) * sinHeight + vol*4;
+    if (!startPop && !circlePopped) {
+        for (var i = 0; i < points; i++) {
+            var sinSeed = event.count + (i + i % 10 * 100);
+            var sinHeight = Math.sin(sinSeed / 200) * pathHeight;
+            if (vol == null || vol == 0 || vol == undefined) {
+                var xPos = Math.sin(sinSeed / 100) * sinHeight;
+                var yPos = Math.sin(sinSeed / 100) * sinHeight;
+            }
+            if (vol > 0) {
+                var xPos = Math.sin(sinSeed / 100) * sinHeight + vol * 8;
+                var yPos = Math.sin(sinSeed / 100) * sinHeight + vol * 8;
+
+                size = new Size(60, vol*100);
+
+            }
+
+            if (circle.position.x >= view.center.x + 100 || circle.position.x <= view.center.x - 100) {
+                circleDir *= -1;
+            }
+
+            circle.segments[0].point.x += xPos / 2 * circleDir;
+            circle.segments[1].point.y += yPos / 2 * circleDir;
+            circle.segments[2].point.x += xPos / 2 * circleDir;
+            circle.segments[3].point.y += yPos / 2 * circleDir;
+
         }
 
-        if(circle.position.x >= view.center.x + 100 || circle.position.x <= view.center.x - 100){
-            circleDir *= -1;
-        }
-
-        circle.segments[0].point.x += xPos/2 * circleDir;
-		circle.segments[1].point.y += yPos/2 * circleDir;
-        circle.segments[2].point.x += xPos/2 * circleDir;
-        circle.segments[3].point.y += yPos/2 * circleDir;
-
-        // face.segments[i].point.x += (xPos/2);
+        // Smooth the segments of the copy:
+        //face.smooth();
     }
-
-    // Smooth the segments of the copy:
-    //face.smooth();
 
     // Select the path, so we can see its handles:
-    //face.fullySelected = true;
-
+    circle.fullySelected = true;
 
 }
 
 function onResize(event) {
-    // Whenever the window is resized, recenter the path:
-    //path.position = view.center;
+
 }

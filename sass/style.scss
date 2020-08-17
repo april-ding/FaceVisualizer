@@ -3,13 +3,16 @@ body {
    width: 100%;
     height: 100%;
     background-color: #EAE5E7;
+    overflow: hidden;
 }
 
 /* Scale canvas with resize attribute to full size */
-canvas{
+#myCanvas{
    z-index: -1;
+   width: 100%;
+   height: 100%;
 }
-canvas[resize] {
+#myCanvas[resize] {
     width: 100%;
     height: 100%;
 }
