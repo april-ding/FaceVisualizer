@@ -18,35 +18,6 @@ var bar = new Path({
     strokeCap: 'round',
 });
 
-
-
-// var mouth = new Shape.Ellipse({
-//     point: view.center - 20 + new Point(0, 80),
-//     size: [40, 20],
-//     fillColor: 'black'
-// });
-//
-// var eye1 = new Path.Circle(new Point(view.center + {
-//     x: 90,
-//     y: -50
-// }), circleSize/4);
-// var iris1 = new Path.Circle(new Point(view.center + {
-//     x: 90,
-//     y: -50
-// }), circleSize*0.15);
-// var eye2 = new Path.Circle(new Point(view.center + {
-//     x: -90,
-//     y: -50
-// }), circleSize/4);
-// var iris2 = new Path.Circle(new Point(view.center + {
-//     x: -90,
-//     y: -50
-// }), circleSize*0.15);
-// eye1.fillColor = 'white';
-// eye2.fillColor = 'white';
-// iris1.fillColor = 'black';
-// iris2.fillColor = 'black';
-
 var dir = 1;
 var pathHeight = 0.5;
 
@@ -73,17 +44,6 @@ function onFrame(event) {
         }
 
     }
-    // if (vol > 0) {
-    //     mouth.size = [40, 20 + vol * 400];
-    //
-    //     if (iris1.position.x >= view.center.x + 90 + 20 || iris1.position.x <= view.center.x + 90 - 20) {
-    //         dir *= -1;
-    //     }
-    //     iris1.position.x += vol * 10 * dir;
-    //     iris2.position.x += vol * 10 * dir;
-    //
-    // }
-
 
     //pop the face
     if (!circlePopped) {
