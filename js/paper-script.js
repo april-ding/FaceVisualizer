@@ -1,5 +1,3 @@
-
-
 // var circle = new Path.Circle(new Point(view.center), 200);
 // circle.fillColor = '#80BC9B';
 // var circleDir = 1;
@@ -12,8 +10,10 @@
 //     fillColor: 'black'
 // });
 
-var words = project.importSVG("img/clock-1.svg");
-words.visible = true; // Turn off the effect of display:none;
+var clock = project.importSVG(document.getElementById('gg'), function() {
+    gg.style.display = 'none';
+})
+console.log(clock);
 
 var dir = 1;
 
@@ -28,6 +28,10 @@ function onMouseMove(event) {
 }
 
 function onFrame(event) {
+    if(vol > 0){
+        clock.position.x += vol *5;
+    }
+
     // if(vol>0){
     //     mouth.size =[40, 20+vol*400];
     //
