@@ -1,80 +1,76 @@
-// var circle = new Path.Circle(new Point(view.center), 200);
-// circle.fillColor = '#80BC9B';
-// var circleDir = 1;
-//
-// var points = 8;
-//
-// var mouth = new Shape.Ellipse({
-//     point: view.center - 20 + new Point(0, 80),
-//     size: [40, 20],
-//     fillColor: 'black'
-// });
+// ==================
+// Global Variables
+// ==================
+// COLORS
+var color_purple = '#725fa2';
 
-var clock = project.importSVG(document.getElementById('gg'), function() {
-    gg.style.display = 'none';
-})
-console.log(clock);
+// LANDING VARIABLES
+var landing_body, landing_left_eye, landing_right_eye, landing_left_arm, landing_right_arm, landing_mouth;
 
 var dir = 1;
 
-var pathHeight = 0.5;
-initializePath();
+// ==================
+// Initialization
+// ==================
+initial();
 
-function initializePath() {
 
+// ==================
+// Function Declarations
+// ==================
+function initial(){
+    landing();
 }
 
-function onMouseMove(event) {
+function landing() {
+    landing_body = project.importSVG(document.getElementById('landingBody'), function() {
+        landingBody.style.display = 'none';
+    })
+    landing_body.position = view.center;
+
+    landing_left_eye = project.importSVG(document.getElementById('landingLeftEye'), function() {
+        landingLeftEye.style.display = 'none';
+    })
+    landing_left_eye.position = new Point(view.center.x-30, view.center.y-67);
+
+    landing_right_eye = project.importSVG(document.getElementById('landingRightEye'), function() {
+        landingRightEye.style.display = 'none';
+    })
+    landing_right_eye.position = new Point(view.center.x+35, view.center.y-67);
+
+    landing_left_arm = project.importSVG(document.getElementById('landingLeftArm'), function() {
+        landingLeftArm.style.display = 'none';
+    })
+    landing_left_arm.pivot = landing_left_arm.bounds.bottomRight;
+    landing_left_arm.position = new Point(view.center.x-120, view.center.y-20);
+
+    landing_right_arm = project.importSVG(document.getElementById('landingRightArm'), function() {
+        landingRightArm.style.display = 'none';
+    })
+    landing_right_arm.pivot = landing_right_arm.bounds.bottomLeft;
+    landing_right_arm.position = new Point(view.center.x+125, view.center.y-20);
+
+    landing_mouth = new Shape.Ellipse({
+        point: view.center + new Point(-10, -40),
+        size: [20, 10],
+        fillColor: 'black'
+    });
+
 }
 
 function onFrame(event) {
-    if(vol > 0){
-        clock.position.x += vol *5;
+    //landing
+    if(landing_left_eye.position.x >= view.center.x-25 || landing_left_eye.position.x <= view.center.x-40){
+        dir *= -1;
     }
-
-    // if(vol>0){
-    //     mouth.size =[40, 20+vol*400];
-    //
-    //     if(iris1.position.x >= view.center.x + 90 + 20 || iris1.position.x <= view.center.x + 90 - 20){
-    //         dir *= -1;
-    //     }
-    //     iris1.position.x += vol*5*dir;
-    //     iris2.position.x += vol*5*dir;
-    //
-    // }
-    //
-    // for(var i = 0; i < points; i++){
-    //     var sinSeed = event.count + (i + i % 10 * 100);
-    //     var sinHeight = Math.sin(sinSeed / 200) * pathHeight;
-    //     if(vol == null || vol == 0 || vol == undefined){
-    //         var xPos = Math.sin(sinSeed / 100) * sinHeight;
-    // 		var yPos = Math.sin(sinSeed / 100) * sinHeight;
-    //     }
-    //     if(vol > 0){
-    //         var xPos = Math.sin(sinSeed / 100) * sinHeight + vol*4;
-    // 		var yPos = Math.sin(sinSeed / 100) * sinHeight + vol*4;
-    //     }
-    //
-    //     if(circle.position.x >= view.center.x + 100 || circle.position.x <= view.center.x - 100){
-    //         circleDir *= -1;
-    //     }
-    //
-    //     circle.segments[0].point.x += xPos/2 * circleDir;
-	// 	circle.segments[1].point.y += yPos/2 * circleDir;
-    //     circle.segments[2].point.x += xPos/2 * circleDir;
-    //     circle.segments[3].point.y += yPos/2 * circleDir;
-    // }
-
-    // Smooth the segments of the copy:
-    //face.smooth();
-
-    // Select the path, so we can see its handles:
-    //face.fullySelected = true;
-
-
+    landing_left_eye.position.x += 0.2*dir;
+    landing_right_eye.position.x += 0.2*dir;
+    landing_left_arm.rotate(0.2*dir);
+    landing_right_arm.rotate(-0.2*dir);
+    landing_mouth.size += 0.3*dir;
 }
 
 function onResize(event) {
     // Whenever the window is resized, recenter the path:
-    //path.position = view.center;
+
 }

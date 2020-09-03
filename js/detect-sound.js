@@ -2,7 +2,7 @@ var mic;
 var vol;
 
 function setup() {
-
+    createCanvas(0,0);
   // Create an Audio input
   mic = new p5.AudioIn();
 

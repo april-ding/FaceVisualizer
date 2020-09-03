@@ -1,13 +1,17 @@
+$color-purple: #725fa2;
 html,
 body {
    width: 100%;
     height: 100%;
-    background-color: #EAE5E7;
+    background-color: $color_purple;
+    overflow-y: hidden;
 }
 
 /* Scale canvas with resize attribute to full size */
 canvas{
    z-index: -1;
+   width: 100%;
+   height: 100%;
 }
 canvas[resize] {
     width: 100%;
@@ -21,6 +25,45 @@ canvas[resize] {
    display: flex;
    align-content: center;
    justify-content: center;
+}
+
+#landing{
+   h1{
+      position: absolute;
+      width: 100%;
+      top: 15%;
+      left:0;
+      display: flex;
+      text-align: center;
+      align-content: center;
+      justify-content: center;
+
+      color: white;
+      font-weight: 600;
+      font-size: 36px;
+   }
+}
+.button{
+   border: none;
+   border-radius: 30px;
+  color: white;
+  padding: 16px 32px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 24px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button-start {
+  background-color: white;
+  color: black;
+  &:hover{
+     background-color: black;
+     color: white;
+ }
 }
 
 p{
